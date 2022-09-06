@@ -10,9 +10,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  var _imageVazia = AssetImage('imagens/vazia.jpg');
+  var _imageVazia = const AssetImage('imagens/padrao.png');
 
-  var _imagemRobo = AssetImage('');
+  var _imagemRobo = const AssetImage('');
 
   String _resultado = '';
 
@@ -25,11 +25,11 @@ class _HomeState extends State<Home> {
 
     setState(() {
       if (escolhaboot == 'pedra') {
-        _imageVazia = AssetImage('imagens/pedra.jpg');
+        _imageVazia = const AssetImage('imagens/pedra.png');
       } else if (escolhaboot == 'papel') {
-        _imageVazia = AssetImage('imagens/papel.jpg');
+        _imageVazia = const AssetImage('imagens/papel.png');
       } else {
-        _imageVazia = AssetImage('imagens/tesoura.jpg');
+        _imageVazia = const AssetImage('imagens/tesoura.png');
       }
     });
 
@@ -38,10 +38,18 @@ class _HomeState extends State<Home> {
           (escolhajogador == 'tesoura' && escolhaboot == 'papel') ||
           (escolhajogador == 'papel' && escolhaboot == 'pedra')) {
         _resultado == 'Você ganhou !!';
-        _imagemRobo = AssetImage('imagens/robochorando.jpg');
-      }else if (false) {
-          
-      } 
+        _imagemRobo = const AssetImage('imagens/triste.jpg');
+      } else if ((escolhajogador == 'tesoura' && escolhaboot == 'pedra') ||
+          (escolhajogador == 'papel' && escolhaboot == 'tesoura') ||
+          (escolhajogador == 'pedra' && escolhaboot == 'papel')) {
+        _resultado = 'Você perdeu';
+        _imagemRobo = const AssetImage('imagens/feliz.png');
+      } else {
+        _resultado = 'Empatamos';
+        _imagemRobo = const AssetImage('imagens/feliz.png');
+      }
+
+      _mostrarSnacBar();
     });
   }
 
@@ -49,9 +57,44 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(''),
+        title: const Text('Jogo de pedra, papel e tesoura'),
       ),
-      body: Container(),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Text('Escolha da máquina'),
+          const Image(
+            image: AssetImage('imagens/robopadrao.jpg'),
+            height: 250,
+          ),
+          const SizedBox(
+            height: 60,
+          ),
+          const Text('Escolha uma opção abaixo',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+          const SizedBox(height: 18,),
+          Row(
+            //crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [
+              Image(
+                image: AssetImage('imagens/pedra.png'),
+                height: 110,
+              ),
+              Image(
+                image: AssetImage('imagens/papel.png'),
+                height: 110,
+              ),
+              Image(
+                image: AssetImage('imagens/tesoura.png'),
+                height: 110,
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 }
+
+void _mostrarSnacBar() {}
