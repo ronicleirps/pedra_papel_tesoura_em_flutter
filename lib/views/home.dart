@@ -56,14 +56,31 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Jogo de pedra, papel e tesoura'),
+        elevation: 0.0,
+        centerTitle: true,
+        title: const Text(
+          'Jogo de pedra, papel e tesoura',
+          style: TextStyle(
+              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+        ),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Text('Escolha da máquina'),
+          const SizedBox(
+            height: 32,
+          ),
+          const Text('Escolha da máquina',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              )),
+          const SizedBox(
+            height: 12,
+          ),
           const Image(
             image: AssetImage('imagens/robopadrao.jpg'),
             height: 250,
@@ -71,25 +88,33 @@ class _HomeState extends State<Home> {
           const SizedBox(
             height: 60,
           ),
-          const Text('Escolha uma opção abaixo',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
-          const SizedBox(height: 18,),
-          Row(
-            //crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Image(
-                image: AssetImage('imagens/pedra.png'),
-                height: 110,
-              ),
-              Image(
-                image: AssetImage('imagens/papel.png'),
-                height: 110,
-              ),
-              Image(
-                image: AssetImage('imagens/tesoura.png'),
-                height: 110,
-              ),
-            ],
+          const Text(
+            'Escolha uma opção abaixo',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(
+            height: 18,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              //crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                Image(
+                  image: AssetImage('imagens/pedra.png'),
+                  height: 110,
+                ),
+                Image(
+                  image: AssetImage('imagens/papel.png'),
+                  height: 110,
+                ),
+                Image(
+                  image: AssetImage('imagens/tesoura.png'),
+                  height: 110,
+                ),
+              ],
+            ),
           )
         ],
       ),
