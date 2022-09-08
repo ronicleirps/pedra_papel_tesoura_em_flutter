@@ -12,6 +12,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+
+    
     var _imageVazia = const AssetImage('imagens/padrao.png');
 
     var _imagemRobo = const AssetImage('');
@@ -24,6 +26,32 @@ class _HomeState extends State<Home> {
       var num = Random().nextInt(3);
 
       var escolhaboot = escolha[num];
+      void _mostrarSnacBar() {
+        final snackBar = SnackBar(
+          content: Center(
+            child: Column(
+              children: [
+                Container(
+                  height: 300,
+                ),
+                Text(
+                  _resultado,
+                  style: const TextStyle(
+                      fontSize: 28, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 30,),
+                Image(image: _imagemRobo,
+                 height: 250,
+                )
+              ],
+            ),
+          ),
+          duration: const Duration(seconds: 2),
+          backgroundColor: Colors.orange,
+        );
+
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
 
       setState(() {
         if (escolhaboot == 'pedra') {
@@ -39,7 +67,7 @@ class _HomeState extends State<Home> {
         if ((escolhajogador == 'pedra' && escolhaboot == 'tesoura') ||
             (escolhajogador == 'tesoura' && escolhaboot == 'papel') ||
             (escolhajogador == 'papel' && escolhaboot == 'pedra')) {
-          _resultado == 'Você ganhou !!';
+          _resultado = 'Você ganhou !!';
           _imagemRobo = const AssetImage('imagens/triste.jpg');
         } else if ((escolhajogador == 'tesoura' && escolhaboot == 'pedra') ||
             (escolhajogador == 'papel' && escolhaboot == 'tesoura') ||
@@ -51,7 +79,7 @@ class _HomeState extends State<Home> {
           _imagemRobo = const AssetImage('imagens/feliz.jpg');
         }
 
-        _mostrarSnacBar(_imagemRobo,_resultado);
+        _mostrarSnacBar();
       });
     }
 
@@ -135,22 +163,4 @@ class _HomeState extends State<Home> {
       ),
     );
   }
-}
-
-void _mostrarSnacBar(var imagemRobo, var resultado) {
-  final snackBar = SnackBar(
-      content: Center(
-    child: Column(
-      children: [
-        Container(
-          height: 300,
-        ),
-        Text(
-          resultado,
-          style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-        ),
-        Image(image: imagemRobo)
-      ],
-    ),
-  ));
 }

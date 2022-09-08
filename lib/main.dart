@@ -9,7 +9,7 @@ void main() {
       primaryColor: Colors.orange
     ),
 
-    home: Home(),
+    home: const Home(),
 
   ));
 }
