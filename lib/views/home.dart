@@ -10,51 +10,51 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  var _imageVazia = const AssetImage('imagens/padrao.png');
-
-  var _imagemRobo = const AssetImage('');
-
-  String _resultado = '';
-
-  void _escolha(String escolhajogador) {
-    var escolha = ['pedra', 'papel', 'tesoura'];
-
-    var num = Random().nextInt(3);
-
-    var escolhaboot = escolha[num];
-
-    setState(() {
-      if (escolhaboot == 'pedra') {
-        _imageVazia = const AssetImage('imagens/pedra.png');
-      } else if (escolhaboot == 'papel') {
-        _imageVazia = const AssetImage('imagens/papel.png');
-      } else {
-        _imageVazia = const AssetImage('imagens/tesoura.png');
-      }
-    });
-
-    setState(() {
-      if ((escolhajogador == 'pedra' && escolhaboot == 'tesoura') ||
-          (escolhajogador == 'tesoura' && escolhaboot == 'papel') ||
-          (escolhajogador == 'papel' && escolhaboot == 'pedra')) {
-        _resultado == 'Você ganhou !!';
-        _imagemRobo = const AssetImage('imagens/triste.jpg');
-      } else if ((escolhajogador == 'tesoura' && escolhaboot == 'pedra') ||
-          (escolhajogador == 'papel' && escolhaboot == 'tesoura') ||
-          (escolhajogador == 'pedra' && escolhaboot == 'papel')) {
-        _resultado = 'Você perdeu';
-        _imagemRobo = const AssetImage('imagens/feliz.png');
-      } else {
-        _resultado = 'Empatamos';
-        _imagemRobo = const AssetImage('imagens/feliz.png');
-      }
-
-      _mostrarSnacBar();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    var _imageVazia = const AssetImage('imagens/padrao.png');
+
+    var _imagemRobo = const AssetImage('');
+
+    String _resultado = '';
+
+    void _escolha(String escolhajogador) {
+      var escolha = ['pedra', 'papel', 'tesoura'];
+
+      var num = Random().nextInt(3);
+
+      var escolhaboot = escolha[num];
+
+      setState(() {
+        if (escolhaboot == 'pedra') {
+          _imageVazia = const AssetImage('imagens/pedra.png');
+        } else if (escolhaboot == 'papel') {
+          _imageVazia = const AssetImage('imagens/papel.png');
+        } else {
+          _imageVazia = const AssetImage('imagens/tesoura.png');
+        }
+      });
+
+      setState(() {
+        if ((escolhajogador == 'pedra' && escolhaboot == 'tesoura') ||
+            (escolhajogador == 'tesoura' && escolhaboot == 'papel') ||
+            (escolhajogador == 'papel' && escolhaboot == 'pedra')) {
+          _resultado == 'Você ganhou !!';
+          _imagemRobo = const AssetImage('imagens/triste.jpg');
+        } else if ((escolhajogador == 'tesoura' && escolhaboot == 'pedra') ||
+            (escolhajogador == 'papel' && escolhaboot == 'tesoura') ||
+            (escolhajogador == 'pedra' && escolhaboot == 'papel')) {
+          _resultado = 'Você perdeu';
+          _imagemRobo = const AssetImage('imagens/feliz.jpg');
+        } else {
+          _resultado = 'Empatamos';
+          _imagemRobo = const AssetImage('imagens/feliz.jpg');
+        }
+
+        _mostrarSnacBar(_imagemRobo,_resultado);
+      });
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -100,18 +100,33 @@ class _HomeState extends State<Home> {
             child: Row(
               //crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Image(
-                  image: AssetImage('imagens/pedra.png'),
-                  height: 110,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    _escolha('pedra');
+                  },
+                  child: const Image(
+                    image: AssetImage('imagens/pedra.png'),
+                    height: 110,
+                  ),
                 ),
-                Image(
-                  image: AssetImage('imagens/papel.png'),
-                  height: 110,
+                GestureDetector(
+                  onTap: () {
+                    _escolha('papel');
+                  },
+                  child: const Image(
+                    image: AssetImage('imagens/papel.png'),
+                    height: 110,
+                  ),
                 ),
-                Image(
-                  image: AssetImage('imagens/tesoura.png'),
-                  height: 110,
+                GestureDetector(
+                  onTap: () {
+                    _escolha('tesoura');
+                  },
+                  child: const Image(
+                    image: AssetImage('imagens/tesoura.png'),
+                    height: 110,
+                  ),
                 ),
               ],
             ),
@@ -122,4 +137,20 @@ class _HomeState extends State<Home> {
   }
 }
 
-void _mostrarSnacBar() {}
+void _mostrarSnacBar(var imagemRobo, var resultado) {
+  final snackBar = SnackBar(
+      content: Center(
+    child: Column(
+      children: [
+        Container(
+          height: 300,
+        ),
+        Text(
+          resultado,
+          style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+        ),
+        Image(image: imagemRobo)
+      ],
+    ),
+  ));
+}
